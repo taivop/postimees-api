@@ -45,11 +45,11 @@ class Article:
         return dt
 
     @staticmethod
-    def get_article(id):
+    def get_article(article_id):
         """Download article with the given ID and return Article object built from it."""
 
         # Build request URL
-        url = "http://wap.postimees.ee/index.php?wid=" + str(id)
+        url = "http://wap.postimees.ee/index.php?wid=" + str(article_id)
 
         # Pull page and parse HTML tree
         page = requests.get(url)
