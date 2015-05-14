@@ -1,11 +1,13 @@
 from datetime import datetime
 from lxml import html
+from json import JSONEncoder
 import requests
 
 class Article:
     """A single article object."""
 
-    def __init__(self, title, date, text):
+    def __init__(self, article_id, title, date, text):
+        self.article_id = article_id
         self.title = title
         self.date_string = date
         self.date = self.parse_date(self.date_string)
@@ -17,6 +19,10 @@ class Article:
         a = ["", self.title, str(self.date), ""] + chunks
         return "\n> ".join(a)
 
+    def to_csv(self):
+        """Produce a CSV line from the article"""
+        a = [str(self.article_id), str(self.date), '"' + self.title + '"', '"' + self.text.replace("\n", " ") + '"']
+        return ";".join(a)
 
     @staticmethod
     def parse_date(date_string):
@@ -62,8 +68,26 @@ class Article:
 
         # Build Article object
         if title and date and text:
-            return Article(title[0], date[0], text[0])
+            return Article(article_id, title[0], date[0], "\n".join(text))
         else:
             return None
 
+    @staticmethod
+    def from_json(json_object):
+        return Article(int(json_object['article_id']),
+                       json_object['title'],
+                       json_object['date'],
+                       json_object['text'])
 
+
+
+class ArticleEncoder(JSONEncoder):
+    def default(self, o):
+        if isinstance(o, datetime):
+            obj = str(o)
+        elif isinstance(o, Article):
+            obj = o.__dict__
+        else:
+            obj = JSONEncoder.default(self, o)
+
+        return obj
