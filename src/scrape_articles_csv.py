@@ -1,9 +1,10 @@
 from article import Article
 import time, codecs
 
-range_min = 10001
-range_max = 100000
+range_min = 91511
+range_max = 150000
 num_saved = 0
+sleep_ms = 50
 
 # Open file
 f = codecs.open('../data/out_{}_{}.csv'.format(range_min, range_max), 'w', "utf-8")
@@ -23,7 +24,7 @@ for article_id in range(range_min, range_max+1):
         f.writelines(s)
         num_saved += 1
 
-    sleep_ms = 0
+    # Leave some time before next request
     time.sleep(sleep_ms/1000)
 
 
