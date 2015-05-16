@@ -21,7 +21,9 @@ class Article:
 
     def to_csv(self):
         """Produce a CSV line from the article"""
-        a = [str(self.article_id), str(self.date), '"' + self.title + '"', '"' + re.sub("\n|\r", " ", self.text) + '"']
+        article_body = re.sub("\n|\r", " ", self.text) # Remove linefeeds
+        article_body = re.sub("\"", "", article_body)  # Remove quotes
+        a = [str(self.article_id), str(self.date), '"' + self.title + '"', '"' + article_body + '"']
         return ";".join(a)
 
     @staticmethod
