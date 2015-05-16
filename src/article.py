@@ -1,7 +1,7 @@
 from datetime import datetime
 from lxml import html
 from json import JSONEncoder
-import requests
+import requests, re
 
 class Article:
     """A single article object."""
@@ -21,7 +21,7 @@ class Article:
 
     def to_csv(self):
         """Produce a CSV line from the article"""
-        a = [str(self.article_id), str(self.date), '"' + self.title + '"', '"' + self.text.replace("\n", " ") + '"']
+        a = [str(self.article_id), str(self.date), '"' + self.title + '"', '"' + re.sub("\n|\r", " ", self.text) + '"']
         return ";".join(a)
 
     @staticmethod
