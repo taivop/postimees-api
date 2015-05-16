@@ -58,3 +58,7 @@ target/
 
 # Pycharm
 .idea/
+
+# Project stuff
+Rtest/
+data/
