@@ -1,8 +1,9 @@
 from article import Article
 import time, codecs
 
-range_min = 91511
-range_max = 150000
+range_min = 1394567
+range_max = 2000000
+range_step = 1
 num_saved = 0
 sleep_ms = 50
 
@@ -13,7 +14,7 @@ f = codecs.open('../data/out_{}_{}.csv'.format(range_min, range_max), 'w', "utf-
 start_time = time.time()
 
 # Pull and save articles
-for article_id in range(range_min, range_max+1):
+for article_id in range(range_min, range_max+1, range_step):
     a = Article.get_article(article_id)
     print("{:0}: ".format(article_id), end="")
     print(a.title if a else "---")
