@@ -1,4 +1,6 @@
-# Unofficial API for Postimees.ee
+# Scrape wap.postimees.ee articles [outdated]
+*Important: Postimees have retired their WAP site so this piece of code no longer works.*
+
 Article scraper for the Estonian news site Postimees.
 
 ### How it works
